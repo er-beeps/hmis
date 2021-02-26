@@ -40,10 +40,10 @@
                         {% endif %}
 
                         <div class="input-group mb-3">
-                          {{ form.email }}
+                          {{ form.username }}
                           <div class="input-group-append">
                             <div class="input-group-text">
-                              <span class="fas fa-envelope"></span>
+                              <span class="fas fa-user"></span>
                             </div>
                           </div>
                         </div>
@@ -55,24 +55,16 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row ml-2">
+                            <div class="check-primary text-muted">
+                                <input type="checkbox" id="remember">
+                                <label for="remember" class="font-weight-normal">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
                         <div class="row">
-                            <div class="col-xs-8">
-                                {% block login_form_links %}
-                                {% endblock %}
-                            </div>
-                            <div class="col-8">
-                                <div class="check-primary text-muted">
-                                    <input type="checkbox" id="remember">
-                                    <label for="remember" class="font-weight-normal">
-                                        Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">{% trans 'Sign In' %}</button>
-                            </div>
-                            <!-- /.col -->
+                            <button type="submit" class="btn btn-primary btn-block">{% trans 'Sign In' %}</button>
                         </div>
                     </form>
                 {% endblock login_form %}
@@ -85,15 +77,18 @@
                     <a href="#" class="btn btn-block btn-danger">
                       <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
                     </a>
-                </div> {% endcomment %}
+                </div>  {% endcomment %}
                 
                 <!-- /.social-auth-links -->
-                <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
-                </p>
-                <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
-                </p>
+                <div class=" text-center mt-3">
+
+                    {% comment %} <p class="mb-1">
+                        <a href="forgot-password.html">I forgot my password</a>
+                    </p> {% endcomment %}
+                    <p class="mb-0">
+                        <a href="{% url 'register' %}" class="text-center">Register a new membership !</a>
+                    </p>
+                </div>
 
             </div>
             <!-- /.login-card-body -->

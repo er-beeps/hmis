@@ -4,10 +4,10 @@ from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(
+    username = forms.CharField(
+        widget=forms.TextInput(
             attrs={
-                "placeholder": "Email",
+                "placeholder": "Username",
                 "class": "form-control"
             }
         ))
@@ -45,8 +45,8 @@ class SignUpForm(UserCreationForm):
     password2 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "placeholder": "Password check",
-                "class": "form-control"
+                "placeholder": "Password confirmation",
+                "class": "form-control",
             }
         ))
 
