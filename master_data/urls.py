@@ -6,8 +6,9 @@ urlpatterns = [
     path('dashboard', views.homepage, name='homepage'),
 
     # routes for province
-    path('<slug:slug>/list', views.list, name='crud_list'),
-    path('<slug:slug>/add', views.list, name='crud_add'),
+    path('<slug:slug>/list', views.crud_list, name='crud_list'),
+    path('<slug:slug>/add', views.crud_create_or_update, name='crud_add'),
+    path('<slug:slug>/<int:id>/edit', views.crud_create_or_update, name='crud_edit'),
 
 
     # path('province/add',views.province_form,name='province_add'),

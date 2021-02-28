@@ -1,0 +1,40 @@
+
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+
+    <div class="row">
+        {% for field in form %}
+            <div class="col-md-4">
+               
+            </div>
+        {%endfor%}
+    </div>
+
+
+
+    {% comment %} <div class="row">
+        <div class="col-md-4">
+            {{ form.code }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form.name_en }}
+        </div>
+        <div class="col-md-4">
+            {{ form.name_lc }}
+        </div>
+    </div>
+    {{ form.display_order }} {% endcomment %}
+    {% comment %} <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"> Submit </i>
+            </button>
+        </div>
+        <div class="col-md-6">
+            <a href="{% url 'province_list' %}" class="btn btn-secondary btn-block btn-lg"><i class="fas fa-stream">Back
+                    to list</i></a>
+        </div>
+    </div> {% endcomment %}
+
+</form>

@@ -16,12 +16,34 @@ def redirect_to_dashboard(request):
 
 @login_required(login_url="login/")
 # View for List
-def list(request, slug):
+def crud_list(request, slug):
     model = underscore_to_camelcase(slug)
     lists = eval(model).objects.all()
     header = model
-    context = {'lists': lists, 'header': header,'slug':slug}
+    context = {'lists': lists, 'header': header, 'slug': slug}
     return render(request, "adminlte/pages/list.html", context)
+
+
+@login_required(login_url="login/")
+def crud_create_or_update(request, slug, id=0):
+    model = underscore_to_camelcase(slug)
+    if request.method == "GET":
+        if id == 0:
+            modelform = model+'Form'
+            form = eval(modelform)()
+        else:
+            province = Province.objects.get(pk=id)
+            form = ProvinceForm(instance=province)
+        return render(request, "adminlte/pages/partial/create.html", {'form': form})
+    else:
+        if id == 0:
+            form = ProvinceForm(request.POST)
+        else:
+            province = Province.objects.get(pk=id)
+            form = ProvinceForm(request.POST, instance=province)
+        if form.is_valid():
+            form.save()
+        return redirect('../province/list')
 
 
 def province_list(request):
