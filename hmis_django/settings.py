@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fancybox',
+    'crispy_forms',
     'adminlte3',
     'fontawesome-free',
     'authentication',
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'hmis_django.urls'
 # LOGIN_REDIRECT_URL = "ho"
 LOGIN_URL = "/auth/login"
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
