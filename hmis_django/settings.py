@@ -56,8 +56,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'hmis_django.urls'
-# LOGIN_REDIRECT_URL = "home"
-# LOGOUT_REDIRECT_URL = "home"
+# LOGIN_REDIRECT_URL = "ho"
+LOGIN_URL = "/auth/login"
 
 
 TEMPLATES = [

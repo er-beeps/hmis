@@ -4,7 +4,7 @@
 <aside class="main-sidebar sidebar-dark-primary  elevation-4">
      <!-- Brand Logo -->
     {% block logo %}
-        <a href="/" class="brand-link">
+        <a href="{% url 'homepage' %}" class="brand-link">
             <img src="{%static 'admin-lte/images/hospital.png' %}" alt="HMIS Logo" class="brand-image" style="opacity: 1; min-height:40px">
             {% block logo_text %}<span class="brand-text font-weight-bold">HMIS </span>{% endblock %}
         </a>

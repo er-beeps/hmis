@@ -1,14 +1,16 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404,reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .forms import LoginForm, SignUpForm
 from django.template import loader
 from django import template
 
+def redirect_login_view(request):
+    return redirect('/auth/login/')
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -23,7 +25,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("master/")
+                return redirect("/master/")
             else:
                 msg = 'Invalid credentials'
         else:
@@ -43,10 +45,8 @@ def register_user(request):
             form.save()
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=raw_password)
 
-            msg = 'User created - please <a href="/login">login</a>.'
-            success = True
+            msg = 'New user registered successfully !!'
 
             # return redirect("/login/")
 
@@ -55,4 +55,4 @@ def register_user(request):
     else:
         form = SignUpForm()
 
-    return render(request, "accounts/register.html", {"form": form, "msg": msg, "success": success})
+    return render(request, "accounts/register.html", {"form": form, "msg": msg})
