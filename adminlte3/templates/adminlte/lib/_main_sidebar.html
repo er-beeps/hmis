@@ -39,27 +39,54 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i> 
-                            <p>Example link active</p>
-                        </a>
-                    </li>
+              
                 <li class="nav-item has-tree-view ">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-object-group"></i> <p>Sub menu</p>
+                        <i class="nav-icon fas fa-object-group"></i> <p>Primary Master</p>
                         <p><i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview menu-open">
-                            <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-circle"></i> link
-                                    </a>
-                                </li>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-user"></i> Another link
+                            <a href="{% url 'crud_list' 'province' %}" class="nav-link">
+                                <i class="far fa-compass nav-icon"></i>
+                                <p>Province</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'crud_list' 'district' %}" class="nav-link">
+                                <i class="far fa-compass nav-icon"></i>
+                                <p>District</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'crud_list' 'local_level' %}" class="nav-link">
+                                <i class="far fa-compass nav-icon"></i>
+                                <p>Local Level</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'crud_list' 'local_level_type' %}" class="nav-link">
+                                <i class="far fa-compass nav-icon"></i>
+                                <p>Local Level Type</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'crud_list' 'fiscal_year' %}" class="nav-link">
+                                <i class="far fa-calendar nav-icon"></i>
+                                <p>Fiscal Year</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'crud_list' 'nepali_month' %}" class="nav-link">
+                                <i class="far fa-calendar nav-icon"></i>
+                                <p>Nepali Month</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'crud_list' 'gender' %}" class="nav-link">
+                                <i class="fa fa-venus-mars nav-icon"></i>
+                                <p>Gender</p>
                             </a>
                         </li>
                     </ul>
