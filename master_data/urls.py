@@ -9,6 +9,7 @@ urlpatterns = [
     path('<slug:slug>/list', views.crud_list, name='crud_list'),
     path('<slug:slug>/add', views.crud_create_or_update, name='crud_add'),
     path('<slug:slug>/<int:id>/edit', views.crud_create_or_update, name='crud_edit'),
+    path('<slug:slug>/<int:id>/delete', views.crud_delete, name='crud_delete'),
 
 
     # path('province/add',views.province_form,name='province_add'),

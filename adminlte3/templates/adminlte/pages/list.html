@@ -1,22 +1,73 @@
 {% extends 'adminlte/base.html' %}
+{% load static %}
+
+{% block style_sheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}">
+{% endblock %}
 
 {% block page_name %}
   <div class="container-fluid">
-    <h2>
+    <h3>
       <span class="text-capitalize"> {{ header }}</span>
-    </h2>
+    </h3>
+        <small id="datatable_info_stack"></small>
+
   </div>
 {% endblock %}
 
 {% block buttons %}
-	<a data-fancybox data-type="ajax" href="{% url 'crud_add' slug %}" class="fancybox btn btn-sm btn-success" data-style="zoom-in"><span class="ladda-label"><i class="fa fa-plus"></i>  New entry</span></a>
+    {% include '../buttons/create_button.html' %}
 {% endblock%}
+
 {% block content %}
     <div class="card">
         <div class="card-body">
-    
+            <table id="crudTable" class="bg-white table table-sm table-striped table-hover nowrap rounded shadow-xs" style="background-color:lightgrey;" cellspacing="0">
+              <thead>
+                <tr>
+                  <th class="text-center" data-orderable="false">S.N</th>
+                  {% for column in columns %}
+                    <th>
+                      {{ labels|get_item:column }}
+                    </th>
+                  {% endfor %}
+                  <th class="text-center" data-orderable="false">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in lists %}
+                  <tr><td class="text-center">{{ forloop.counter }}</td>
+                    {% for column in columns %}
+                    <td>{{ item|get_item_value:column}}</td>
+                    {% endfor %}
+                      <td class="text-center">
+                        {% include '../buttons/edit_button.html' with slug=slug id=item.id %}
+                        {% include '../buttons/delete_button.html' with slug=slug id=item.id %}
+                        </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
         </div>
     </div>
+{% endblock %}
+
+
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.min.js' %}"></script>
+
+  <script>
+  $(document).ready(function(){
+    $('#crudTable').DataTable()
+  })
+  </script>
 {% endblock %}
 
     

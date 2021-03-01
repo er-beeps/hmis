@@ -8,12 +8,12 @@ class ProvinceForm(forms.ModelForm):
         model = Province
         fields = ('code', 'name_en', 'name_lc', 'display_order')
         labels = {
-            'name_en': ('Name'),
-            'name_lc': ('नाम'),
+            'code': 'Code',
+            'name_en': 'Name',
+            'name_lc': 'नाम',
+            'display_order': 'Display Order',
         }
-        widgets = {
-            'name_en': forms.TextInput(attrs={'class': 'form-control'})
-        }
+
 
 class DistrictForm(forms.ModelForm):
 

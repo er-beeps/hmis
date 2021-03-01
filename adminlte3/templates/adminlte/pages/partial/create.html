@@ -1,8 +1,7 @@
 {% load crispy_forms_tags %}
 
-<form action="" method="post" autocomplete="off">
+<form action="{% url 'crud_add' slug%}" method="post" autocomplete="off">
     {% csrf_token %}
-
     <div class="row">
         {% for field in form %}
             
@@ -19,5 +18,5 @@
             {% endif %}
         {% endfor %}
     </div>
-    {% include './save_and_cancel_button.html' %}
+    {% include 'adminlte/buttons/save_and_cancel_button.html' %}
 </form>
