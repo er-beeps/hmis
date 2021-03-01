@@ -47,7 +47,9 @@ def crud_create_or_update(request, slug, id=0):
             form = eval(modelForm)()
         else:
             entity = eval(model).objects.get(pk=id)
-            form = eval(modelForm)(request.POST, instance=entity)
+            form = eval(modelForm)(instance=entity)
+
+            print(entity, form)
         return render(request, "adminlte/pages/partial/create.html", {'form': form, 'slug': slug})
     else:
         if id == 0:

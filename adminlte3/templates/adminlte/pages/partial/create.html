@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 
-<form action="{% url 'crud_add' slug%}" method="post" autocomplete="off">
+<form action="{% url 'crud_create' slug %}" method="post" autocomplete="off">
     {% csrf_token %}
     <div class="row">
         {% for field in form %}
