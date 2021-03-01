@@ -1,0 +1,22 @@
+{% load crispy_forms_tags %}
+
+<form action="{% url 'crud_update' slug entry.id %}" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="row">
+        {% for field in form %}
+            
+            {% if forloop.first %}
+                <div class="col-md-12 p-0">
+                    <div class="col-md-4">
+                        {{ field|as_crispy_field }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    {{ field|as_crispy_field }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% include 'adminlte/buttons/save_and_cancel_button.html' %}
+</form>
