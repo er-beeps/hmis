@@ -1,4 +1,9 @@
 {% load crispy_forms_tags %}
+{% load static %}
+
+{% block style_sheets %}
+<link rel="stylesheet" href="{% static 'hmis-django/css/custom.css' %}">
+{% endblock %}
 
 <form action="{% url 'crud_update' slug entry.id %}" method="post" autocomplete="off">
     {% csrf_token %}
@@ -7,12 +12,12 @@
             
             {% if forloop.first %}
                 <div class="col-md-12 p-0">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         {{ field|as_crispy_field }}
                     </div>
                 </div>
             {% else %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     {{ field|as_crispy_field }}
                 </div>
             {% endif %}
@@ -20,3 +25,7 @@
     </div>
     {% include 'adminlte/buttons/save_and_cancel_button.html' %}
 </form>
+
+{% block extra_js %}
+        <script src="{% static 'hmis-django/js/date_converter.js' %}"></script>
+{% endblock %}

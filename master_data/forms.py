@@ -74,10 +74,10 @@ class FiscalYearForm(forms.ModelForm):
                             'to_date_ad': 'To Date(A.D)'})
         labels = form_labels
         widgets = {
-            'from_date_bs': forms.TextInput(attrs={'id':'from_date_bs','placeholder': 'yyyy-mm-dd','data-init-function':"fieldDateChange"}),
-            'to_date_bs': forms.TextInput(attrs={'id':'to_date_bs','placeholder': 'yyyy-mm-dd','data-init-function':"fieldDateChange"}),
-            'from_date_ad': forms.DateInput(attrs={'id':'from_date_ad','type': 'date'}),
-            'to_date_ad': forms.DateInput(attrs={'id':'to_date_ad','type': 'date'})
+            'from_date_bs': forms.TextInput(attrs={'id': 'from_date_bs', 'relatedId': 'from_date_ad', 'placeholder': 'yyyy-mm-dd', 'onfocus': 'fieldDateChange(this)'}),
+            'to_date_bs': forms.TextInput(attrs={'id': 'to_date_bs', 'relatedId': 'to_date_ad', 'placeholder': 'yyyy-mm-dd', 'onfocus': 'fieldDateChange(this)'}),
+            'from_date_ad': forms.DateInput(attrs={'id': 'from_date_ad', 'type': 'date'}),
+            'to_date_ad': forms.DateInput(attrs={'id': 'to_date_ad', 'type': 'date'})
         }
 
 

@@ -33,3 +33,16 @@
     margin-left:5px;
 
 }
+
+.modal-backdrop {
+    z-index: -1;
+  }
+
+.fancybox-content {
+    max-width: 80%
+}
+
+div#ndp-nepali-box{
+    display:block;
+    z-index:99999;
+}

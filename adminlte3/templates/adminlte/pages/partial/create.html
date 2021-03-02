@@ -1,4 +1,9 @@
 {% load crispy_forms_tags %}
+{% load static %}
+
+{% block style_sheets %}
+<link rel="stylesheet" href="{% static 'hmis-django/css/custom.css' %}">
+{% endblock %}
 
 <form action="{% url 'crud_create' slug %}" method="post" autocomplete="off">
     {% csrf_token %}
@@ -18,5 +23,13 @@
             {% endif %}
         {% endfor %}
     </div>
+
     {% include 'adminlte/buttons/save_and_cancel_button.html' %}
 </form>
+
+{% block extra_js %}
+        <script src="{% static 'hmis-django/js/date_converter.js' %}"></script>
+{% endblock %}
+
+
+
