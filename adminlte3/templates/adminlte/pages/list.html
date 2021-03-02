@@ -24,7 +24,7 @@
 {% block content %}
     <div class="card">
         <div class="card-body" style="overflow-x:auto;">
-            <table id="crudTable" class="bg-white table table-sm table-striped table-hover  rounded shadow-xs" style="background-color:lightgrey;" cellspacing="0">
+            <table id="crudTable" class="bg-white table table-sm table-striped table-hover rounded shadow-xs" style="background-color:lightgrey;" cellspacing="0">
               <thead>
                 <tr>
                   <th class="text-center width-50" data-orderable="false">S.N</th>
@@ -66,6 +66,8 @@
   <script>
   $(document).ready(function(){
     $('#crudTable').DataTable()
+
+    $('#id_code').focus()
   })
   </script>
 {% endblock %}
