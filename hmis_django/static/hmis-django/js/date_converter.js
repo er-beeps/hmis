@@ -1,3 +1,8 @@
+$(document).ready(function () {
+    var mainInput = document.getElementsByClassName("input-nepali-date");
+    mainInput.nepaliDatePicker();
+});
+
 function fieldDateChange(element) {
     var selector_id = element.getAttribute('id');
     var related_id = element.getAttribute('relatedId');
