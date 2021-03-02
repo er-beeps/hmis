@@ -26,7 +26,7 @@ class DistrictForm(forms.ModelForm):
     class Meta:
         model = District
         fields = form_fields[:1]+('province_id',)+form_fields[1:]
-        form_labels['province_id'] = 'Province'
+        form_labels.update({'province_id': 'Province'})
         labels = form_labels
 
     def __init__(self, *args, **kwargs):
@@ -34,11 +34,27 @@ class DistrictForm(forms.ModelForm):
         self.fields['province_id'].empty_label = "Select Province"
 
 
+class LocalLevelTypeForm(forms.ModelForm):
+    class Meta:
+        model = LocalLevelType
+        fields = form_fields
+        labels = form_labels
+
+
 class LocalLevelForm(forms.ModelForm):
 
     class Meta:
         model = LocalLevel
-        fields = '__all__'
+        fields = form_fields[:1]+('district_id',
+                                  'local_level_type_id')+form_fields[1:]
+        fields = fields[:5]+('wards_count', 'gps_lat', 'gps_long')+fields[5:]
+
+        form_labels.update({'district_id': 'District',
+                            'local_level_type_id': 'Local Level Type',
+                            'wards_count': 'Wards Count',
+                            'gps_lat': 'GPS Latitude',
+                            'gps_long': 'GPS Longitude'})
+        labels = form_labels
 
     def __init__(self, *args, **kwargs):
         super(LocalLevelForm, self).__init__(*args, **kwargs)
@@ -46,29 +62,36 @@ class LocalLevelForm(forms.ModelForm):
         self.fields['local_level_type_id'].empty_label = "Select Locallevel Type"
 
 
-class LocalLevelTypeForm(forms.ModelForm):
-
-    class Meta:
-        model = LocalLevelType
-        fields = '__all__'
-
-
 class FiscalYearForm(forms.ModelForm):
 
     class Meta:
         model = FiscalYear
-        fields = '__all__'
+        fields = ('code', 'from_date_bs', 'from_date_ad',
+                  'to_date_bs', 'to_date_ad', 'display_order')
+        form_labels.update({'from_date_bs': 'From Date(B.S)',
+                            'from_date_ad': 'From Date(A.D)',
+                            'to_date_bs': 'To Date(B.S)',
+                            'to_date_ad': 'To Date(A.D)'})
+        labels = form_labels
+        widgets = {
+            'from_date_bs': forms.TextInput(attrs={'id':'from_date_bs','placeholder': 'yyyy-mm-dd','data-init-function':"fieldDateChange"}),
+            'to_date_bs': forms.TextInput(attrs={'id':'to_date_bs','placeholder': 'yyyy-mm-dd','data-init-function':"fieldDateChange"}),
+            'from_date_ad': forms.DateInput(attrs={'id':'from_date_ad','type': 'date'}),
+            'to_date_ad': forms.DateInput(attrs={'id':'to_date_ad','type': 'date'})
+        }
 
 
 class NepaliMonthForm(forms.ModelForm):
 
     class Meta:
         model = NepaliMonth
-        fields = '__all__'
+        fields = form_fields
+        labels = form_labels
 
 
 class GenderForm(forms.ModelForm):
 
     class Meta:
         model = Gender
-        fields = '__all__'
+        fields = form_fields
+        labels = form_labels
