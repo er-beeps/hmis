@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="{% static 'hmis-django/css/custom.css' %}">
 {% endblock %}
 
-<form action="{% url 'crud_update' slug entry.id %}" method="post" autocomplete="off">
+
+
+<form action="{% url 'crud_update' slug entry.id %}" method="post" id="{{ slug|add:"_form" }}" autocomplete="off">
     {% csrf_token %}
     <div class="row">
         {% for field in form %}
@@ -26,6 +28,4 @@
     {% include 'adminlte/buttons/save_and_cancel_button.html' %}
 </form>
 
-{% block extra_js %}
-        <script src="{% static 'hmis-django/js/date_converter.js' %}"></script>
-{% endblock %}
+<script src="{% static 'hmis-django/js/date_converter.js' %}"></script>

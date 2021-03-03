@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.template.defaulttags import register
+from django.http import JsonResponse
 from .models import *
 from .forms import *
 
@@ -46,8 +47,9 @@ def crud_create_or_update(request, slug, id=0):
         else:
             entity = eval(model).objects.get(pk=id)
             form = eval(modelForm)(instance=entity)
-            return render(request, "adminlte/pages/partial/edit.html", {'form': form, 'slug': slug,'entry':entity})
+            return render(request, "adminlte/pages/partial/edit.html", {'form': form, 'slug': slug, 'entry': entity})
     else:
+        message = ''
         if id == 0:
             form = eval(modelForm)(request.POST)
         else:
@@ -55,7 +57,12 @@ def crud_create_or_update(request, slug, id=0):
             form = eval(modelForm)(request.POST, instance=entity)
         if form.is_valid():
             form.save()
-        return redirect('crud_list', slug=slug)
+            if id == 0:
+                message = 'The item has been added successfully !'
+            else:
+                message = 'The item has been modified successfully !'
+
+        return JsonResponse({'message': message})
 
 
 @login_required(login_url="login/")

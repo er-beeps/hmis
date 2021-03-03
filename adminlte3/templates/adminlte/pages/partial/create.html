@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'hmis-django/css/custom.css' %}">
 {% endblock %}
 
-<form action="{% url 'crud_create' slug %}" method="post" autocomplete="off">
+<form action="{% url 'crud_create' slug %}" method="post" id="{{ slug|add:"_form" }}" autocomplete="off">
     {% csrf_token %}
     <div class="row">
         {% for field in form %}
