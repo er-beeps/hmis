@@ -15,9 +15,15 @@ class Province(models.Model):
 
     class Meta:
         db_table = 'mst_provinces'
+        ordering = ['display_order']
 
     def __str__(self):
         return self.name_en
+
+    def save(self):
+        new_code = Province.objects.order_by('code')[0]
+        self.code = new_code.code+1
+        print(self.code)
 
 
 class District(models.Model):
@@ -33,6 +39,7 @@ class District(models.Model):
 
     class Meta:
         db_table = 'mst_districts'
+        ordering = ['display_order']
 
     def __str__(self):
         return self.name_en
@@ -50,6 +57,7 @@ class LocalLevelType(models.Model):
 
     class Meta:
         db_table = 'mst_local_level_types'
+        ordering = ['display_order']
 
     def __str__(self):
         return self.name_en
@@ -73,6 +81,7 @@ class LocalLevel(models.Model):
 
     class Meta:
         db_table = 'mst_local_levels'
+        ordering = ['display_order']
 
 
 class FiscalYear(models.Model):
@@ -89,6 +98,7 @@ class FiscalYear(models.Model):
 
     class Meta:
         db_table = 'mst_fiscal_years'
+        ordering = ['display_order']
 
 
 class NepaliMonth(models.Model):
@@ -103,6 +113,7 @@ class NepaliMonth(models.Model):
 
     class Meta:
         db_table = 'mst_nepali_months'
+        ordering = ['display_order']
 
 
 class Gender(models.Model):
@@ -117,3 +128,4 @@ class Gender(models.Model):
 
     class Meta:
         db_table = 'mst_genders'
+        ordering = ['display_order']

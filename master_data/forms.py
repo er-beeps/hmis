@@ -20,6 +20,13 @@ class ProvinceForm(forms.ModelForm):
         fields = form_fields
         labels = form_labels
 
+    def __init__(self, *args, **kwargs):
+        super(ProvinceForm, self).__init__(*args, **kwargs)
+        self.fields['code'].widget.attrs['value'] = Province.objects.order_by(
+            '-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = Province.objects.order_by(
+            '-display_order')[0].display_order+1
+
 
 class DistrictForm(forms.ModelForm):
 
@@ -32,6 +39,10 @@ class DistrictForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DistrictForm, self).__init__(*args, **kwargs)
         self.fields['province_id'].empty_label = "Select Province"
+        self.fields['code'].widget.attrs['value'] = District.objects.order_by(
+            '-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = District.objects.order_by(
+            '-display_order')[0].display_order+1
 
 
 class LocalLevelTypeForm(forms.ModelForm):
@@ -39,6 +50,13 @@ class LocalLevelTypeForm(forms.ModelForm):
         model = LocalLevelType
         fields = form_fields
         labels = form_labels
+
+    def __init__(self, *args, **kwargs):
+        super(LocalLevelTypeForm, self).__init__(*args, **kwargs)
+        self.fields['code'].widget.attrs['value'] = LocalLevelType.objects.order_by(
+            '-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = LocalLevelType.objects.order_by(
+            '-display_order')[0].display_order+1
 
 
 class LocalLevelForm(forms.ModelForm):
@@ -60,6 +78,10 @@ class LocalLevelForm(forms.ModelForm):
         super(LocalLevelForm, self).__init__(*args, **kwargs)
         self.fields['district_id'].empty_label = "Select District"
         self.fields['local_level_type_id'].empty_label = "Select Locallevel Type"
+        self.fields['code'].widget.attrs['value'] = LocalLevel.objects.order_by(
+            '-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = LocalLevel.objects.order_by(
+            '-display_order')[0].display_order+1
 
 
 class FiscalYearForm(forms.ModelForm):
@@ -74,8 +96,8 @@ class FiscalYearForm(forms.ModelForm):
                             'to_date_ad': 'To Date(A.D)'})
         labels = form_labels
         widgets = {
-            'from_date_bs': forms.TextInput(attrs={'class':'input-nepali-date','id': 'from_date_bs', 'relatedId': 'from_date_ad', 'placeholder': 'yyyy-mm-dd', 'onclick': 'fieldDateChange(this)'}),
-            'to_date_bs': forms.TextInput(attrs={'class':'input-nepali-date','id': 'to_date_bs', 'relatedId': 'to_date_ad', 'placeholder': 'yyyy-mm-dd', 'onclick': 'fieldDateChange(this)'}),
+            'from_date_bs': forms.TextInput(attrs={'class': 'input-nepali-date', 'id': 'from_date_bs', 'relatedId': 'from_date_ad', 'placeholder': 'yyyy-mm-dd', 'onclick': 'fieldDateChange(this)'}),
+            'to_date_bs': forms.TextInput(attrs={'class': 'input-nepali-date', 'id': 'to_date_bs', 'relatedId': 'to_date_ad', 'placeholder': 'yyyy-mm-dd', 'onclick': 'fieldDateChange(this)'}),
             'from_date_ad': forms.DateInput(attrs={'id': 'from_date_ad', 'type': 'date'}),
             'to_date_ad': forms.DateInput(attrs={'id': 'to_date_ad', 'type': 'date'})
         }
@@ -87,6 +109,13 @@ class NepaliMonthForm(forms.ModelForm):
         model = NepaliMonth
         fields = form_fields
         labels = form_labels
+
+    def __init__(self, *args, **kwargs):
+        super(NepaliMonthForm, self).__init__(*args, **kwargs)
+        self.fields['code'].widget.attrs['value'] = NepaliMonth.objects.order_by(
+            '-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = NepaliMonth.objects.order_by(
+            '-display_order')[0].display_order+1
 
 
 class GenderForm(forms.ModelForm):
