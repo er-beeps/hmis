@@ -69,8 +69,14 @@ def crud_create_or_update(request, slug, id=0):
 def crud_delete(request, slug, id):
     model = underscore_to_camelcase(slug)
     entity = eval(model).objects.get(pk=id)
-    entity.delete()
-    return redirect('crud_list', slug=slug)
+    delete_status = entity.delete()
+    if(delete_status):
+       status = 'success'
+       value = 1
+    else:
+        status ='error'
+        value = 0
+    return JsonResponse({'status': status,'value':value})
 
 
 def underscore_to_camelcase(value):
