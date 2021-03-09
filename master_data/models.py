@@ -23,7 +23,6 @@ class Province(models.Model):
     def save(self):
         new_code = Province.objects.order_by('code')[0]
         self.code = new_code.code+1
-        print(self.code)
 
 
 class District(models.Model):

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fancybox',
+    'django_filters',
     'crispy_forms',
     'adminlte3',
     'fontawesome-free',

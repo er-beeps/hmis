@@ -51,10 +51,8 @@
                         $("#noty_layout__topRight").css("width","300px");
                     
                     }, 500);
-                //reload the content
-                setTimeout(()=>{
-                        location.reload(true);
-                },2000)
+                //reload the data table content
+                loadDatatableList(response.slug)
 
                 })
                 .fail(function (response) {

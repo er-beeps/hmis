@@ -23,33 +23,12 @@
 
 {% block content %}
     <div class="card">
+        <div class="card-body p-0 pl-4">
+              {% include './partial/filter.html' with filteredList=filteredList %}
+        </div>
         <div class="card-body" style="overflow-x:auto;">
-            <table id="crudTable" class="bg-white table table-sm table-striped table-hover rounded shadow-xs" style="background-color:lightgrey;" cellspacing="0">
-              <thead>
-                <tr>
-                  <th class="text-center width-50" data-orderable="false">S.N</th>
-                  {% for column in columns %}
-                    <th>
-                      {{ labels|get_item:column }}
-                    </th>
-                  {% endfor %}
-                  <th class="text-center left-border-lightgray width-100" data-orderable="false" >Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in lists %}
-                  <tr><td class="text-center right-border-lightgray">{{ forloop.counter }}</td>
-                    {% for column in columns %}
-                    <td>{{ item|get_item_value:column}}</td>
-                    {% endfor %}
-                      <td class="text-center left-border-lightgray">
-                        {% include '../buttons/edit_button.html' with slug=slug id=item.id %}
-                        {% include '../buttons/delete_button.html' with slug=slug id=item.id %}
-                      </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-          </table>
+              <div id ="section-datatable"></div>
+              {% comment %} {% include './partial/datatable.html' with columns=columns labels=labels lists=lists slug=slug %} {% endcomment %}
         </div>
     </div>
 {% endblock %}
@@ -64,11 +43,25 @@
   <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.min.js' %}"></script>
 
   <script>
-  $(document).ready(function(){
-    $('#crudTable').DataTable()
+    $(document).ready(function() {
+      let slug = "{{ slug }}";
+      if(slug !== ''){
+        loadDatatableList();
+      }
+    });
 
-    $('#id_code').focus()
-  })
+
+
+  function loadDatatableList(slug){
+    let url = "{% url 'filter_crud_list' slug=slug %}";
+    $('#section-datatable').html('<div class="text-center"><img src="{%static "admin-lte/images/loading.gif" %}"/></div>');
+
+    $.get(url,function(response) {
+        $('#section-datatable').html(response);
+        $('#crudTable').DataTable()
+
+    });
+  }
   </script>
 {% endblock %}
 

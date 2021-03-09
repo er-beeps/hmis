@@ -1,0 +1,14 @@
+{% load crispy_forms_tags %}
+
+<form action="" autocomplete="off">
+    <div class="row">
+    {{ filteredList.form|crispy }}
+        {% comment %} {% for field in form %}
+            
+        {% endfor %} {% endcomment %}
+    </div>
+</form>
+
+
+
+

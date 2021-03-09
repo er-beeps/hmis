@@ -4,6 +4,7 @@ from django.template.defaulttags import register
 from django.http import JsonResponse
 from .models import *
 from .forms import *
+from .filters import *
 
 
 @login_required(login_url="login/")
@@ -21,6 +22,23 @@ def redirect_to_dashboard(request):
 def crud_list(request, slug):
     # get model name from slug
     model = underscore_to_camelcase(slug)
+    # pass page header name
+    header = model
+
+    # if filter is present
+    filterClass = model+'Filter'
+    filteredList = eval(filterClass)(
+        request.GET, queryset=eval(model).objects.all())
+
+    context = {'header': header, 'slug': slug, 'filteredList': filteredList}
+    return render(request, "adminlte/pages/list.html", context)
+
+
+# Render List Operation partial view
+@login_required(login_url="login/")
+def filter_crud_list(request, slug):
+    # get model name from slug
+    model = underscore_to_camelcase(slug)
     # buid form from model
     modelForm = model+'Form'
     # get columns name and label  for list operation
@@ -28,12 +46,10 @@ def crud_list(request, slug):
     labels = eval(modelForm)._meta.labels
     # get all data from table
     lists = eval(model).objects.all()
-    # pass page header name
-    header = model
 
-    context = {'columns': columns, 'labels': labels, 'lists': lists,
-               'header': header, 'slug': slug}
-    return render(request, "adminlte/pages/list.html", context)
+    context = {'columns': columns, 'labels': labels,
+               'lists': lists, 'slug': slug}
+    return render(request, "adminlte/pages/partial/datatable.html", context)
 
 # Create or Update Operation
 @login_required(login_url="login/")
@@ -62,7 +78,7 @@ def crud_create_or_update(request, slug, id=0):
             else:
                 message = 'The item has been modified successfully !'
 
-        return JsonResponse({'message': message})
+        return JsonResponse({'message': message, 'slug': slug})
 
 
 @login_required(login_url="login/")
@@ -71,12 +87,12 @@ def crud_delete(request, slug, id):
     entity = eval(model).objects.get(pk=id)
     delete_status = entity.delete()
     if(delete_status):
-       status = 'success'
-       value = 1
+        status = 'success'
+        value = 1
     else:
-        status ='error'
+        status = 'error'
         value = 0
-    return JsonResponse({'status': status,'value':value})
+    return JsonResponse({'status': status, 'value': value, 'slug': slug})
 
 
 def underscore_to_camelcase(value):
