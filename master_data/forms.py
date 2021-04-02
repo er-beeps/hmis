@@ -22,10 +22,8 @@ class ProvinceForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProvinceForm, self).__init__(*args, **kwargs)
-        self.fields['code'].widget.attrs['value'] = Province.objects.order_by(
-            '-code')[0].code+1
-        self.fields['display_order'].widget.attrs['value'] = Province.objects.order_by(
-            '-display_order')[0].display_order+1
+        self.fields['code'].widget.attrs['value'] = Province.objects.order_by('-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = Province.objects.order_by('-display_order')[0].display_order+1
 
 
 class DistrictForm(forms.ModelForm):
@@ -39,10 +37,8 @@ class DistrictForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DistrictForm, self).__init__(*args, **kwargs)
         self.fields['province_id'].empty_label = "Select Province"
-        self.fields['code'].widget.attrs['value'] = District.objects.order_by(
-            '-code')[0].code+1
-        self.fields['display_order'].widget.attrs['value'] = District.objects.order_by(
-            '-display_order')[0].display_order+1
+        self.fields['code'].widget.attrs['value'] = District.objects.order_by('-code')[0].code+1
+        self.fields['display_order'].widget.attrs['value'] = District.objects.order_by('-display_order')[0].display_order+1
 
 
 class LocalLevelTypeForm(forms.ModelForm):

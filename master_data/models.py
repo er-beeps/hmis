@@ -20,10 +20,6 @@ class Province(models.Model):
     def __str__(self):
         return self.name_en
 
-    def save(self):
-        new_code = Province.objects.order_by('code')[0]
-        self.code = new_code.code+1
-
 
 class District(models.Model):
     code = models.IntegerField()

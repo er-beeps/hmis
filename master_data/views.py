@@ -71,6 +71,7 @@ def crud_create_or_update(request, slug, id=0):
         else:
             entity = eval(model).objects.get(pk=id)
             form = eval(modelForm)(request.POST, instance=entity)
+
         if form.is_valid():
             form.save()
             if id == 0:
