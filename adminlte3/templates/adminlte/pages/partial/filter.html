@@ -1,8 +1,8 @@
 {% load crispy_forms_tags %}
 
-<form action="" autocomplete="off">
+<form action="{% url 'crud_list' slug %}" slug={{ slug }} autocomplete="off">
     <div class="row">
-    {{ filteredList.form|crispy }}
+    {{ filterFields.form|crispy }}
         {% comment %} {% for field in form %}
             
         {% endfor %} {% endcomment %}

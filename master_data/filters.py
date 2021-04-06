@@ -17,8 +17,9 @@ class ProvinceFilter(filters.FilterSet):
 
 
 class DistrictFilter(filters.FilterSet):
-    province_id = ModelChoiceFilter(label='Province', queryset=Province.objects.all(
-    ), empty_label='--select province--', widget=forms.Select(attrs={'class': 'form-control-sm', 'onchange': 'reloadList'}))
+    province_id = ModelChoiceFilter(label='Province', queryset=Province.objects.all(),
+                                    empty_label='--select province--',
+                                    widget=forms.Select(attrs={'class': 'form-control-sm', 'onchange': 'HMIS.reloadList(this)'}))
 
     class Meta:
         model = District

@@ -10,8 +10,8 @@
 
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: 'btn btn-danger pull-right',
-                cancelButton: 'btn btn-success'
+                confirmButton: 'btn btn-danger ml-5',
+                cancelButton: 'btn btn-secondary mr-5'
             },
             buttonsStyling: false
             });
@@ -39,7 +39,7 @@
                         if (result.value != 1) {
                             Swal.fire({
                                 position: 'center',
-                                icon: 'error',
+                                icon: 'warning',
                                 title: 'Your item is safe !',
                                 showConfirmButton: false,
                                 timer: 1000
@@ -61,7 +61,7 @@
                     error: function(result) {
                         Swal.fire({
                             position: 'center',
-                            icon: 'error',
+                            icon: 'warning',
                             title: 'Your item is safe !',
                             showConfirmButton: false,
                             timer: 1000
@@ -71,7 +71,7 @@
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire({
                     position: 'center',
-                    icon: 'error',
+                    icon: 'warning',
                     title: 'Your item is safe !',
                     showConfirmButton: false,
                     timer: 1000

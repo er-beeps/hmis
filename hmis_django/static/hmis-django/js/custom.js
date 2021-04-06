@@ -24,5 +24,19 @@ let HMIS = {
         let status = bool === true ? 'show' : 'hide';
         $.LoadingOverlay(status, { text: "Saving..." });
     },
+
+    reloadList: (item) => {
+        let form = item.form;
+        let slug = form.getAttribute('slug');
+
+        let field = item.name;
+        let value = item.value;
+
+        let newUrl = window.location.origin + window.location.pathname + '?' + field + '=' + value;
+        history.pushState({}, null, newUrl);
+        let params = {};
+        params[field] = value;
+        loadDatatableList(slug, params);
+    },
 }
 window.HMIS = HMIS;
