@@ -27,17 +27,23 @@ class DistrictFilter(filters.FilterSet):
 
 
 class LocalLevelTypeFilter(filters.FilterSet):
-
     class Meta:
         model = LocalLevelType
         exclude = form_fields
 
 
 class LocalLevelFilter(filters.FilterSet):
+    district_id = ModelChoiceFilter(label='District', queryset=District.objects.all(),
+                                    empty_label='--select district--',
+                                    widget=forms.Select(attrs={'class': 'form-control-sm filter-field', 'onchange': 'HMIS.reloadList(this)'}))
+    local_level_type_id = ModelChoiceFilter(label='Local Level Type', queryset=LocalLevelType.objects.all(),
+                                            empty_label='--select local level type--',
+                                            widget=forms.Select(attrs={'class': 'form-control-sm filter-field', 'onchange': 'HMIS.reloadList(this)'}))
 
     class Meta:
         model = LocalLevel
         exclude = form_fields
+        fields = ['district_id', 'local_level_type_id']
 
 
 class FiscalYearFilter(filters.FilterSet):

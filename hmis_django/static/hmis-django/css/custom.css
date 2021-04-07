@@ -46,3 +46,8 @@ div#ndp-nepali-box{
     display:block;
     z-index:99999;
 }
+
+.filter-field{
+    margin-left:2px;
+    margin-right:2px;
+}

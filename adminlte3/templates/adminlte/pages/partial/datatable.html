@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for item in lists.qs %}
+    {% for item in lists.qs%}
         <tr><td class="text-center right-border-lightgray">{{ forloop.counter }}</td>
         {% for column in columns %}
         <td>{{ item|get_item_value:column}}</td>

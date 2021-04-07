@@ -62,6 +62,9 @@ ROOT_URLCONF = 'hmis_django.urls'
 # LOGIN_REDIRECT_URL = "ho"
 LOGIN_URL = "/auth/login"
 
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 TEMPLATES = [
     {

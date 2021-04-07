@@ -11,14 +11,12 @@
   <div class="container-fluid">
     <h3>
       <span class="text-capitalize"> {{ header }}</span>
+        {% include '../buttons/create_button.html' %}
     </h3>
-        <small id="datatable_info_stack"></small>
-
   </div>
 {% endblock %}
 
 {% block buttons %}
-    {% include '../buttons/create_button.html' %}
 {% endblock%}
 
 {% block content %}
