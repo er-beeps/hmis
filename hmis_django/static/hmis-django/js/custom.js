@@ -26,16 +26,22 @@ let HMIS = {
     },
 
     reloadList: (item) => {
+        let newUrl;
+        let params = {};
+
         let form = item.form;
         let slug = form.getAttribute('slug');
 
         let field = item.name;
         let value = item.value;
 
-        let newUrl = window.location.origin + window.location.pathname + '?' + field + '=' + value;
+
+        newUrl = window.location.origin + window.location.pathname;
+        if (value) {
+            newUrl = window.location.origin + window.location.pathname + '?' + field + '=' + value;
+            params[field] = value;
+        }
         history.pushState({}, null, newUrl);
-        let params = {};
-        params[field] = value;
         loadDatatableList(slug, params);
     },
 }

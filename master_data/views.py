@@ -27,8 +27,7 @@ def crud_list(request, slug):
 
     # if filter is present
     filterClass = model+'Filter'
-    filterFields = eval(filterClass)(
-        request.GET, queryset=eval(model).objects.all())
+    filterFields = eval(filterClass)(request.GET, queryset=eval(model).objects.all())
 
     context = {'header': header, 'slug': slug, 'filterFields': filterFields}
     return render(request, "adminlte/pages/list.html", context)
@@ -46,11 +45,11 @@ def filter_crud_list(request, slug):
     labels = eval(modelForm)._meta.labels
     # get all data from table
     lists = eval(model).objects.all()
-    if request.GET:
+    # for filter
+    if request.GET is not None:
         # if filter is present
         filterClass = model+'Filter'
         filteredLists = eval(filterClass)(request.GET, queryset=lists)
-
         lists = filteredLists
 
     context = {'columns': columns, 'labels': labels,
