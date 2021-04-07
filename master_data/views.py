@@ -1,10 +1,17 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import redirect, render
+from django.template import RequestContext
 from django.template.defaulttags import register
-from django.http import JsonResponse
-from .models import *
-from .forms import *
 from .filters import *
+from .forms import *
+from .models import *
+from pyexcel_xlsx import get_data
+
+
+global master_models
+master_models = ['Province', 'District', 'LocalLevel',
+                 'LocalLevelType', 'FiscalYear', 'NepaliMonth', 'Gender']
 
 
 @login_required(login_url="login/")
@@ -27,9 +34,16 @@ def crud_list(request, slug):
 
     # if filter is present
     filterClass = model+'Filter'
-    filterFields = eval(filterClass)(request.GET, queryset=eval(model).objects.all())
+    filterFields = eval(filterClass)(
+        request.GET, queryset=eval(model).objects.all())
 
-    context = {'header': header, 'slug': slug, 'filterFields': filterFields}
+    if model in master_models:
+        upload_button = True
+    else:
+        upload_button = False
+
+    context = {'header': header, 'slug': slug,
+               'filterFields': filterFields, 'upload_button': upload_button}
     return render(request, "adminlte/pages/list.html", context)
 
 
@@ -99,6 +113,28 @@ def crud_delete(request, slug, id):
         status = 'error'
         value = 0
     return JsonResponse({'status': status, 'value': value, 'slug': slug})
+
+# file upload
+
+
+def upload(request, slug):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            upload_file = request.FILES['file']
+            data = get_data(upload_file)
+            for collection in data.items():
+                columns = collection[1][0]
+                for item in collection[1]:
+                    print(item)
+        else:
+            return HttpResponseBadRequest()
+    else:
+        form = UploadFileForm()
+
+    context = {'slug': slug}
+    return render(request, 'adminlte/pages/partial/upload.html', context)
 
 
 def underscore_to_camelcase(value):

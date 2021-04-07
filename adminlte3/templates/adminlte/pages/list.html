@@ -9,10 +9,19 @@
 
 {% block page_name %}
   <div class="container-fluid">
-    <h3>
-      <span class="text-capitalize"> {{ header }}</span>
-        {% include '../buttons/create_button.html' %}
-    </h3>
+    <div class="row">
+      <div class="col-md-8">
+        <h3>
+          <span class="text-capitalize"> {{ header }}</span>
+            {% include '../buttons/create_button.html' %}
+        </h3>
+      </div>
+      <div class="col text-right mr-5">
+        {% if upload_button %}
+          {% include '../buttons/upload_button.html' %}
+        {%  endif %}
+      </div>
+    </div>
   </div>
 {% endblock %}
 

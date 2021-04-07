@@ -13,6 +13,10 @@ form_labels = {
 form_fields = ('code', 'name_en', 'name_lc', 'display_order')
 
 
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
+
+
 class ProvinceForm(forms.ModelForm):
 
     class Meta:
@@ -26,8 +30,10 @@ class ProvinceForm(forms.ModelForm):
         self.fields['display_order'].widget.attrs['value'] = 1
 
         if Province.objects.all().count() > 0:
-            self.fields['code'].widget.attrs['value'] = Province.objects.order_by('-code')[0].code+1
-            self.fields['display_order'].widget.attrs['value'] = Province.objects.order_by('-display_order')[0].display_order+1
+            self.fields['code'].widget.attrs['value'] = Province.objects.order_by(
+                '-code')[0].code+1
+            self.fields['display_order'].widget.attrs['value'] = Province.objects.order_by(
+                '-display_order')[0].display_order+1
 
 
 class DistrictForm(forms.ModelForm):
@@ -45,8 +51,10 @@ class DistrictForm(forms.ModelForm):
         self.fields['display_order'].widget.attrs['value'] = 1
 
         if District.objects.all().count() > 0:
-            self.fields['code'].widget.attrs['value'] = District.objects.order_by('-code')[0].code+1
-            self.fields['display_order'].widget.attrs['value'] = District.objects.order_by('-display_order')[0].display_order+1
+            self.fields['code'].widget.attrs['value'] = District.objects.order_by(
+                '-code')[0].code+1
+            self.fields['display_order'].widget.attrs['value'] = District.objects.order_by(
+                '-display_order')[0].display_order+1
 
 
 class LocalLevelTypeForm(forms.ModelForm):
@@ -61,8 +69,10 @@ class LocalLevelTypeForm(forms.ModelForm):
         self.fields['display_order'].widget.attrs['value'] = 1
 
         if LocalLevelType.objects.all().count() > 0:
-            self.fields['code'].widget.attrs['value'] = LocalLevelType.objects.order_by('-code')[0].code+1
-            self.fields['display_order'].widget.attrs['value'] = LocalLevelType.objects.order_by('-display_order')[0].display_order+1
+            self.fields['code'].widget.attrs['value'] = LocalLevelType.objects.order_by(
+                '-code')[0].code+1
+            self.fields['display_order'].widget.attrs['value'] = LocalLevelType.objects.order_by(
+                '-display_order')[0].display_order+1
 
 
 class LocalLevelForm(forms.ModelForm):
@@ -88,10 +98,10 @@ class LocalLevelForm(forms.ModelForm):
         self.fields['display_order'].widget.attrs['value'] = 1
 
         if LocalLevel.objects.all().count() > 0:
-            self.fields['code'].widget.attrs['value'] = LocalLevel.objects.order_by('-code')[0].code+1
-            self.fields['display_order'].widget.attrs['value'] = LocalLevel.objects.order_by('-display_order')[0].display_order+1
-
-
+            self.fields['code'].widget.attrs['value'] = LocalLevel.objects.order_by(
+                '-code')[0].code+1
+            self.fields['display_order'].widget.attrs['value'] = LocalLevel.objects.order_by(
+                '-display_order')[0].display_order+1
 
 
 class FiscalYearForm(forms.ModelForm):
@@ -126,8 +136,10 @@ class NepaliMonthForm(forms.ModelForm):
         self.fields['display_order'].widget.attrs['value'] = 1
 
         if NepaliMonth.objects.all().count() > 0:
-            self.fields['code'].widget.attrs['value'] = NepaliMonth.objects.order_by('-code')[0].code+1
-            self.fields['display_order'].widget.attrs['value'] = NepaliMonth.objects.order_by('-display_order')[0].display_order+1
+            self.fields['code'].widget.attrs['value'] = NepaliMonth.objects.order_by(
+                '-code')[0].code+1
+            self.fields['display_order'].widget.attrs['value'] = NepaliMonth.objects.order_by(
+                '-display_order')[0].display_order+1
 
 
 class GenderForm(forms.ModelForm):
