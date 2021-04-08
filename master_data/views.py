@@ -6,8 +6,7 @@ from django.template.defaulttags import register
 from .filters import *
 from .forms import *
 from .models import *
-from pyexcel_xlsx import get_data
-
+import json
 
 global master_models
 master_models = ['Province', 'District', 'LocalLevel',
@@ -122,18 +121,16 @@ def upload(request, slug):
         form = UploadFileForm(request.POST, request.FILES)
 
         if form.is_valid():
-            upload_file = request.FILES['file']
-            data = get_data(upload_file)
             model = underscore_to_camelcase(slug)
+            upload_file = request.FILES['file']
+            json_data = json.load(upload_file)
 
-            for collection in data.items():
-                columns = collection[1][0]
-                # skip first index, since it is column field
-                for items in collection[1][1:]:
-                    model_instance = eval(model)()
-                    for key, column in enumerate(columns):
-                        model_instance.column = items[key]
-                    model_instance.save()
+            for row in json_data:
+                # check for foreign key and init model instance if exits
+                row = check_for_foreign_key(row, slug)
+
+                eval(model).objects.create(**row)
+            return redirect('/master/'+slug+'/list')
         else:
             return HttpResponseBadRequest()
     else:
@@ -156,6 +153,21 @@ def underscore_to_camelcase(value):
             output += word.capitalize()
         first_word_passed = True
     return output
+
+
+# foreign key check
+
+def check_for_foreign_key(row, slug):
+    if slug == 'district':
+        row['province_id'] = Province.objects.get(pk=row['province_id'])
+
+    if slug == "local_level":
+        row['district_id'] = District.objects.get(pk=row['district_id'])
+        row['local_level_type_id'] = LocalLevelType.objects.get(
+            pk=row['local_level_type_id'])
+        row['display_order'] = 0
+
+    return row
 
 # for getting column label
 @register.filter
