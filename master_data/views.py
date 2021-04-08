@@ -124,10 +124,16 @@ def upload(request, slug):
         if form.is_valid():
             upload_file = request.FILES['file']
             data = get_data(upload_file)
+            model = underscore_to_camelcase(slug)
+
             for collection in data.items():
                 columns = collection[1][0]
-                for item in collection[1]:
-                    print(item)
+                # skip first index, since it is column field
+                for items in collection[1][1:]:
+                    model_instance = eval(model)()
+                    for key, column in enumerate(columns):
+                        model_instance.column = items[key]
+                    model_instance.save()
         else:
             return HttpResponseBadRequest()
     else:
