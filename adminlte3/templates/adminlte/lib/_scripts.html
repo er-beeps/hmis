@@ -7,16 +7,51 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button);
     var url = window.location;
-
     // for sidebar menu entirely but not cover treeview
     $('ul.nav-sidebar a').filter(function() {
-        return this.href == url;
+        //check if url matches
+        if(this.href == url){
+            return true;
+        };
+        //check is some part of url matches the current url
+        if(url.href.includes(this.href)){
+            return true;
+        }
     }).addClass('active');
 
     // for treeview
     $('ul.nav-treeview a').filter(function() {
-        return this.href == url;
+
+        //check if url matches
+        if(this.href == url){
+            return true;
+        };
+
+        //check is some part of url matches the current url
+        if(url.href.includes(this.href)){
+            return true;
+        }
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+
+
+
+    // for navbar toggle, sidebar collapse and show using sidebar state in localstorage
+    if (Boolean(sessionStorage.getItem("sidebar-toggle-collapsed"))) {
+        $("body").addClass('sidebar-collapse')
+    }
+
+    $('.toggle-navbar').click(function() {
+        event.preventDefault();
+        
+        if (Boolean(sessionStorage.getItem("sidebar-toggle-collapsed"))) {
+        sessionStorage.setItem("sidebar-toggle-collapsed", "");
+        } else {
+        sessionStorage.setItem("sidebar-toggle-collapsed", "1");
+        }
+    
+  });
+
+
 </script>
 <script src="{% static 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
 
