@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin-lte/plugins/datatables-fixedcolumns/css/fixedColumns.bootstrap4.min.css' %}">
 {% endblock %}
 
 {% block page_name %}
@@ -32,6 +33,7 @@
     <div class="card">
         <div class="card-body p-0 pl-4">
               {% include './partial/filter.html' with filterFields=filterFields slug=slug %}
+              <hr class="hr-line">
         </div>
         <div class="card-body" style="overflow-x:auto;">
               <div id ="section-datatable"></div>
@@ -48,6 +50,8 @@
   <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables-fixedcolumns/js/dataTables.fixedColumns.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'admin-lte/plugins/datatables-fixedcolumns/js/fixedColumns.bootstrap4.min.js' %}"></script>
 
   <script>
     $(document).ready(function() {
@@ -66,7 +70,15 @@
 
         $.get(url,params,function(response) {
             $('#section-datatable').html(response);
-            $('#crudTable').DataTable()
+            $('#crudTable').DataTable({
+              fixedHeader: true,
+              scrollX: true,
+              scrollCollapse: true,
+              fixedColumns:   {
+                  leftColumns: 0,
+                  rightColumns: 1
+                }
+            })
 
         });
     }else{
@@ -75,12 +87,22 @@
 
         $.get(url,function(response) {
             $('#section-datatable').html(response);
-            $('#crudTable').DataTable()
+            $('#crudTable').DataTable({
+              fixedHeader: true,
+              scrollX: true,
+              scrollCollapse: true,
+              fixedColumns:   {
+                  leftColumns: 0,
+                  rightColumns: 1
+              }
+            })
 
         });
     }
     
   }
+
+  let field = $('.filter-field').parent().parent().css({"margin-right":"5px"});
   </script>
 {% endblock %}
 
