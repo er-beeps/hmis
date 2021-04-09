@@ -26,7 +26,7 @@ let HMIS = {
     },
 
     reloadList: (item) => {
-        let newUrl;
+        let updateUrl;
         let params = {};
 
         let form = item.form;
@@ -36,12 +36,47 @@ let HMIS = {
         let value = item.value;
 
 
-        newUrl = window.location.origin + window.location.pathname;
-        if (value) {
-            newUrl = window.location.origin + window.location.pathname + '?' + field + '=' + value;
-            params[field] = value;
+        updateUrl = window.location.origin + window.location.pathname;
+        fullUrl = window.location.href;
+
+        // check if current url already contains some query parameters
+        // if it contains , then just append the next parameters 
+        if (fullUrl.includes("?")) {
+
+            //check if the field already exists in current url
+            // if exits just update the field value, and do not append to url
+            if (fullUrl.includes(field)) {
+                old_search_params = new URLSearchParams(location.search);
+
+                //check if the selected field has value or not
+                // if field value is empty, just remove the paramter from url
+                if (value) {
+                    old_search_params.set(field, value);
+                    new_search_params = '?' + old_search_params.toString();
+                } else {
+                    old_search_params.delete(field);
+                    new_search_params = old_search_params.toString();
+                    //if new search params in empty, remove '?' from url
+                    if (new_search_params != "") {
+                        new_search_params = '?' + new_search_params;
+                    }
+                }
+
+                updateUrl = updateUrl + new_search_params;
+
+            } else {
+                updateUrl = fullUrl + '&' + field + '=' + value;
+            }
+            history.pushState({}, null, updateUrl);
+            params = Object.fromEntries(new URLSearchParams(location.search));
+        } else {
+            // if current url doesnot contains any query parameters, then add new paramaters
+            updateUrl = updateUrl + '?' + field + '=' + value;
+            history.pushState({}, null, updateUrl);
+            params = Object.fromEntries(new URLSearchParams(location.search));
         }
-        history.pushState({}, null, newUrl);
+
+        // reload datatable according to selected filters
         loadDatatableList(slug, params);
     },
 }
