@@ -57,7 +57,7 @@ let HMIS = {
                     old_search_params.delete(field);
                     new_search_params = old_search_params.toString();
                     //if new search params in empty, remove '?' from url
-                    if (new_search_params != "") {
+                    if (new_search_params != "") { 
                         new_search_params = '?' + new_search_params;
                     }
                 }
@@ -79,5 +79,17 @@ let HMIS = {
         // reload datatable according to selected filters
         loadDatatableList(slug, params);
     },
+
+    clearFilter: (item) => {
+        let slug = item.getAttribute('slug');
+
+        if (slug != '') {
+            updateUrl = window.location.origin + window.location.pathname;
+            
+            $('.filter-field').val('').trigger('change');
+            history.pushState({}, null, updateUrl);
+            loadDatatableList(slug);
+        }
+    }
 }
 window.HMIS = HMIS;

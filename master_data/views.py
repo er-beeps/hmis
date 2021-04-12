@@ -41,7 +41,12 @@ def crud_list(request, slug):
     else:
         upload_button = False
 
-    context = {'header': header, 'slug': slug,
+    # shoe filter-section only if filters are available
+    hasFilter = False
+    if filterFields._meta.fields:
+        hasFilter = True
+
+    context = {'header': header, 'slug': slug, 'hasFilter': hasFilter,
                'filterFields': filterFields, 'upload_button': upload_button}
     return render(request, "adminlte/pages/list.html", context)
 
