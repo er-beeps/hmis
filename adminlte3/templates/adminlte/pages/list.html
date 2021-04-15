@@ -44,6 +44,8 @@
       {% endif %}
         <div class="card-body" style="overflow-x:auto;">
               <div id ="section-datatable"></div>
+ <table id="crudTable" class="table table-sm table-striped table-hover bg-white nowrap" width="100%" style="background-color:lightgrey;" cellspacing="0">
+
               {% comment %} {% include './partial/datatable.html' with columns=columns labels=labels lists=lists slug=slug %} {% endcomment %}
         </div>
     </div>
@@ -64,13 +66,43 @@
     $(document).ready(function() {
       let slug = "{{ slug }}";
       if(slug !== ''){
-        loadDatatableList(slug);
+        {% comment %} loadDatatableList(slug); {% endcomment %}
       }
     });
 
+    var table = $('#crudTable').DataTable({
+    deferRender:true,
+    serverSide: true,
+    ajax: function(data, callback, settings) {
+        var sort_column_name = data.columns[data.order[0].column].data.replace(/\./g,"__");
+        var direction = "";
+
+        if (data.order[0].dir == "desc") { direction = "-"};
+        let url= "{% url 'loadTableData' slug %}"
+        $.get(url+'?format=json', {
+            limit: data.length,
+            offset: data.start,
+            search_attribute: data.search.value,
+            order_by: direction+sort_column_name
+        }, function(res) {
+            callback({
+                recordsTotal: res.meta.total_count,
+                recordsFiltered: res.meta.total_count,
+                data: res.objects
+            });
+        });
+    },
+   columns: [
+            { data: "code"},
+            { data: "name_en"},
+            { data: "name_lc" },
+            { data: "display_order" },
+    ],
+    order: [[0, "asc"]]
+});
 
 
-  function loadDatatableList(slug,params){
+  {% comment %} function loadDatatableList(slug,params){
     if(typeof(params) != 'undefined'){
         let url = "{% url 'filter_crud_list' slug=slug %}";
         $('#section-datatable').html('<div class="text-center"><img src="{%static "admin-lte/images/loading.gif" %}"/></div>');
@@ -101,7 +133,7 @@
                 rightColumns: 1
             }
           });
-  }
+  } {% endcomment %}
 
   let field = $('.filter-field').parent().parent().css({"margin-right":"5px"});
   </script>

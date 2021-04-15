@@ -3,10 +3,14 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect, render
 from django.template import RequestContext
 from django.template.defaulttags import register
+from django.core.paginator import Paginator
+from django.db.models import Q
 from .filters import *
 from .forms import *
 from .models import *
 import json
+from functools import reduce
+from operator import and_
 
 global master_models
 master_models = ['Province', 'District', 'LocalLevel',
@@ -73,6 +77,27 @@ def filter_crud_list(request, slug):
     context = {'columns': columns, 'labels': labels,
                'lists': lists, 'slug': slug}
     return render(request, "adminlte/pages/partial/datatable.html", context)
+
+
+# datatable
+def loadTableData(request, slug):
+    # get model name from slug
+    model = underscore_to_camelcase(slug)
+    # buid form from model
+    modelForm = model+'Form'
+    # get columns name and label  for list operation
+    fields = eval(modelForm)._meta.fields
+    labels = eval(modelForm)._meta.labels
+
+    search_value = request.GET.get('search_attribute')
+
+    allLists = eval(model).objects.filter(reduce(and_, (Q(
+        **{fields[i]+'__icontains': search_value}) for i, value in enumerate(fields)))).values('code', 'name_en', 'name_lc')
+
+    print(allLists)
+
+    return JsonResponse(allLists, safe=False)
+
 
 # Create or Update Operation
 @login_required(login_url="login/")

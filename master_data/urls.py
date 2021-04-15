@@ -12,6 +12,7 @@ urlpatterns = [
     path('<slug:slug>/<int:id>/edit', views.crud_create_or_update, name='crud_update'),
     path('<slug:slug>/<int:id>/delete', views.crud_delete, name='crud_delete'),
     path('<slug:slug>/upload', views.upload, name='upload_file'),
+    path('<slug:slug>/loadTableData', views.loadTableData, name='loadTableData'),
 
 
     # path('province/add',views.province_form,name='province_add'),
