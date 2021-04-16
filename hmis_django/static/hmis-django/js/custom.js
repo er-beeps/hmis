@@ -83,7 +83,7 @@ let HMIS = {
     clearFilter: (item) => {
         let slug = item.getAttribute('slug');
 
-        if (slug != '') {
+        if (slug != '' && window.location.href.includes('?')) {
             updateUrl = window.location.origin + window.location.pathname;
             
             $('.filter-field').val('').trigger('change');
