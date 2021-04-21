@@ -1,0 +1,130 @@
+<template>
+  <div class="navidation-sidebar">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <navigation-link url="/homepage">
+        <img
+          src="{%static 'admin-lte/images/hospital.png' %}"
+          alt="HMIS Logo"
+          class="brand-image"
+          style="opacity: 1; min-height: 40px"
+        />
+        <span class="brand-text font-weight-bold">HMIS </span>
+      </navigation-link>
+      <!-- sidebar: style can be found in sidebar.less -->
+      <div class="sidebar">
+        <!-- Sidebar user panel -->
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img
+              src="{% avatar_url size=90 %}"
+              class="img-circle elevation-2"
+              alt="User Image"
+            />
+          </div>
+          <div class="info">
+            <!-- <a href="#" class="d-block">{% firstof request.user.get_full_name request.user.username %}</a -->
+            >
+          </div>
+        </div>
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <nav class="mt-2">
+          <ul
+            class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent text-sm"
+            data-widget="treeview"
+            role="menu"
+            data-accordion="false"
+          >
+            <li class="nav-item">
+              <a href="{% url 'homepage' %}" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-object-group"></i>
+                <p>Primary Master</p>
+                <p><i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{% url 'crud_list' 'province' %}" class="nav-link">
+                    <i class="far fa-compass nav-icon"></i>
+                    <p>Province</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'crud_list' 'district' %}" class="nav-link">
+                    <i class="far fa-compass nav-icon"></i>
+                    <p>District</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="{% url 'crud_list' 'local_level' %}"
+                    class="nav-link"
+                  >
+                    <i class="far fa-compass nav-icon"></i>
+                    <p>Local Level</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="{% url 'crud_list' 'fiscal_year' %}"
+                    class="nav-link"
+                  >
+                    <i class="far fa-calendar nav-icon"></i>
+                    <p>Fiscal Year</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="{% url 'crud_list' 'nepali_month' %}"
+                    class="nav-link"
+                  >
+                    <i class="far fa-calendar nav-icon"></i>
+                    <p>Nepali Month</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'crud_list' 'gender' %}" class="nav-link">
+                    <i class="fa fa-venus-mars nav-icon"></i>
+                    <p>Gender</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href="{% url 'crud_list' 'local_level_type' %}"
+                    class="nav-link"
+                  >
+                    <i class="far fa-compass nav-icon"></i>
+                    <p>Local Level Type</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+  </div>
+</template>
+
+
+<script>
+import NavigationLink from "./partial-components/navigation-link.vue";
+export default {
+  name: "NavigationSidebar",
+  components: {
+    NavigationLink,
+  },
+};
+</script>
+
+<style>
+</style>

@@ -1,0 +1,53 @@
+.asteriskField{
+    margin-left:4px;
+    color: red;
+}
+
+#crudTable thead th{
+    background-color:lightgrey
+}
+
+.left-border-lightgray{
+    border-left: 1px solid lightgray
+}
+.right-border-lightgray{
+    border-right: 1px solid lightgray
+}
+
+.width-50{
+    width:50px;
+}
+.width-100{
+    width:100px;
+}
+
+.edit-btn {
+    padding: 0px 1px 0px 3px;
+    border-radius: 3px;
+    margin-right:5px;
+}
+.delete-btn {
+    padding: 0px 2px 0px 2px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-left:5px;
+
+}
+
+.modal-backdrop {
+    z-index: -1;
+  }
+
+.fancybox-content {
+    max-width: 80%
+}
+
+div#ndp-nepali-box{
+    display:block;
+    z-index:99999;
+}
+
+.hr-line{
+    padding:0;
+    margin:0;
+}
