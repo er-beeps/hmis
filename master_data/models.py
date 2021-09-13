@@ -124,3 +124,16 @@ class Gender(models.Model):
     class Meta:
         db_table = 'mst_genders'
         ordering = ['display_order']
+class Gender(models.Model):
+    code = models.CharField(max_length=10)
+    name_en = models.CharField(max_length=50)
+    name_lc = models.CharField(max_length=50)
+    display_order = models.IntegerField(null=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True, editable=False, null=False, blank=False)
+    updated_at = models.DateTimeField(
+        auto_now=True, editable=False, null=False, blank=False)
+
+    class Meta:
+        db_table = 'mst_genders'
+        ordering = ['display_order']
