@@ -76,7 +76,7 @@ class LocalLevel(models.Model):
 
     class Meta:
         db_table = 'mst_local_levels'
-        ordering = ['display_order']
+        ordering = ['code']
 
 
 class FiscalYear(models.Model):
