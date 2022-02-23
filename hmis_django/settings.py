@@ -136,6 +136,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'hmis_django/static/'),
-    os.path.join(BASE_DIR, 'adminlte/static/'),
+    os.path.join(BASE_DIR, 'adminlte3/static/'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
